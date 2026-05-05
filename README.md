@@ -1,5 +1,4 @@
 # Cybersecurity-Internship
-# Internship Task 1: Foundation & Environment Setup
 **Organization:** ApexPlanet  
 
 
@@ -82,3 +81,41 @@ Implemented host-based security controls to mitigate the discovered risks:
 * **Verification:** Demonstrated the successful blocking of unauthorized connection attempts.
 
 ---
+### Task 3: Web Application Security
+**Completed:** May 5, 2026[cite: 1]
+
+#### **1. Lab Environment Expansion**
+* **Platform:** Kali Linux (VM)[cite: 1].
+* **Target Application:** Deployed **DVWA (Damn Vulnerable Web Application)** on a local Apache2 server with MariaDB[cite: 1].
+* **Configuration:** Modified PHP settings (`allow_url_include = On`) to enable the study of File Inclusion (LFI/RFI) vulnerabilities in a controlled setting[cite: 1].
+
+#### **2. OWASP Top 10 Exploitation & Analysis**
+I identified and successfully exploited critical web vulnerabilities using **Burp Suite** and manual injection techniques[cite: 1]:
+
+* **SQL Injection (SQLi):**
+    * **Exploit:** Executed a `UNION-based` attack (`1' UNION SELECT user, password FROM users-- -`) to extract sensitive usernames and MD5-hashed passwords directly from the database[cite: 1, 2].
+    * **Impact:** Confirmed that unsanitized input leads to complete database compromise and credential theft[cite: 2].
+* **Cross-Site Scripting (XSS):**
+    * **Stored XSS:** Injected a malicious `<script>` into the guestbook field, proving persistence as the alert box triggered on every page refresh[cite: 1, 2].
+    * **Reflected XSS:** Crafted malicious URLs to execute scripts in the victim's browser context, simulating session hijacking scenarios[cite: 1, 2].
+* **Cross-Site Request Forgery (CSRF):**
+    * **Exploit:** Developed a hidden HTML attack file (`csrf_attack.html`) that silently changed an authenticated user's password to `hacked123` without their consent[cite: 1, 2].
+
+#### **3. Burp Suite Advanced Testing**
+* **Proxy & Intercept:** Intercepted live HTTP POST requests to modify login credentials in transit[cite: 1].
+* **Intruder Module:** Conducted a brute-force attack using the `rockyou.txt` wordlist, identifying valid credentials by analyzing variations in HTTP response lengths[cite: 1].
+
+#### **4. Mitigation & Defensive Hardening**
+I implemented and verified the following industry-standard defenses[cite: 1]:
+
+* **Secure Coding:** Documented the migration from vulnerable string concatenation to **Prepared Statements (Parameterized Queries)** to prevent SQLi[cite: 1, 2].
+* **Output Encoding:** Utilized PHP’s `htmlspecialchars()` to neutralize XSS payloads by converting special characters into HTML entities[cite: 1, 2].
+* **Anti-CSRF Tokens:** Verified the implementation of unique, unpredictable session tokens to validate all state-changing requests[cite: 1, 2].
+* **Web Security Headers:** Hardened the Apache server configuration by deploying the following protective headers[cite: 1]:
+    * `Content-Security-Policy` (XSS Mitigation)
+    * `X-Frame-Options: SAMEORIGIN` (Clickjacking Protection)
+    * `X-Content-Type-Options: nosniff` (MIME Sniffing Protection)
+
+#### **5. Verified Results**
+* **Security Scanning:** Used `securityheaders.com` and `curl` to verify the header implementation, successfully moving the server from a failing grade to a "Secure" status[cite: 1].
+* **Lab Validation:** Demonstrated that all previously successful attack payloads (SQLi, XSS, CSRF) were effectively blocked once the DVWA Security Level was increased to **Medium/High**[cite: 1, 2].
