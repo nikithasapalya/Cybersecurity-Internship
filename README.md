@@ -119,3 +119,16 @@ I implemented and verified the following industry-standard defenses[cite: 1]:
 #### **5. Verified Results**
 * **Security Scanning:** Used `securityheaders.com` and `curl` to verify the header implementation, successfully moving the server from a failing grade to a "Secure" status[cite: 1].
 * **Lab Validation:** Demonstrated that all previously successful attack payloads (SQLi, XSS, CSRF) were effectively blocked once the DVWA Security Level was increased to **Medium/High**[cite: 1, 2].
+  
+Task 4: Exploitation & System Security
+Completed: May 18, 2026
+
+Remote Exploitation (Metasploit): Launched msfconsole and utilized the exploit/unix/ftp/vsftpd_234_backdoor module against the target IP (192.168.56.101). Triggered the application backdoor to drop into an unauthorized root command shell, then used a Python pty inline script to upgrade it to an interactive TTY terminal and exfiltrated the password hashes via cat /etc/shadow.
+
+Password Attacks (Hydra & John the Ripper): Executed a high-velocity automated dictionary attack against the target's open SSH Port 22 using THC-Hydra with legacy overrides (ssh-rsa) and the rockyou.txt wordlist to isolate valid root credentials. Saved the exfiltrated hashes to target_hash.txt and ran John the Ripper to successfully decode the encryption back into plain text.
+
+Social Engineering Mockup: Engineered a responsive frontend authentication gateway login template using structural HTML and CSS rules. This user interface simulates a credential-harvesting phishing page used in professional red-team exercises to train corporate personnel on inspecting top-level domains and TLS certificates.
+
+Static Malware Analysis: Conducted a safe, non-runtime integrity audit on a suspicious target binary (sample_file.exe). Ran the file command to check the underlying compiler architecture, used the strings utility to extract hidden plaintext indicators of compromise (C2 server URLs), and calculated an unalterable signature using sha256sum.
+
+System Hardening & Defenses: Switched roles to a system administrator to execute layered endpoint security. Patched software dependencies using sudo apt update && sudo apt upgrade -y, deployed the Uncomplicated Firewall (ufw) to enforce a strict default-deny incoming policy whitelisting only ports 80 and 443, and permanently terminated and disabled the vulnerable vsftpd daemon from the system boot tables.
