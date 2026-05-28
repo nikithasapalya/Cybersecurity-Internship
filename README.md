@@ -132,3 +132,24 @@ Social Engineering Mockup: Engineered a responsive frontend authentication gatew
 Static Malware Analysis: Conducted a safe, non-runtime integrity audit on a suspicious target binary (sample_file.exe). Ran the file command to check the underlying compiler architecture, used the strings utility to extract hidden plaintext indicators of compromise (C2 server URLs), and calculated an unalterable signature using sha256sum.
 
 System Hardening & Defenses: Switched roles to a system administrator to execute layered endpoint security. Patched software dependencies using sudo apt update && sudo apt upgrade -y, deployed the Uncomplicated Firewall (ufw) to enforce a strict default-deny incoming policy whitelisting only ports 80 and 443, and permanently terminated and disabled the vulnerable vsftpd daemon from the system boot tables.
+
+Task 5:
+### Layer 1: Static Trusted-Domain Allowlist Verification
+
+Routes incoming URL string requests through an initial fast-path verification array containing over 150 pre-approved trusted domains—explicitly whitelisting all six Yenepoya University institutional portals . Matches bypass downstream processing and are instantly assigned a clean 2% risk score to guarantee zero false positives for local campus infrastructure .
+
+ ### Layer 2: Rule-Based Structural Blocklist Evaluation
+
+Scans raw URL properties against a strict pattern-matching engine designed to instantly trap clear architectural anomalies . Any connection string featuring direct IP-address hosting, embedded user-manipulation symbols like `@`, Punycode scripts, or homograph domain structures is immediately intercepted and flagged with a static 97% high-risk threat rating .
+
+ ### Layer 3: Machine Learning Random Forest Classification
+
+Passes all remaining unclassified URL strings into a custom feature extraction module to process 21 numerical lexical, structural, and semantic features . These vectors are normalized via a serialized standard scaler and classified using a trained Random Forest model (200 trees, maximum depth of 20) to compute a dynamic threat probability score from 0% to 100% .
+
+ ### Asynchronous Manifest V3 Browser Interception Pipeline
+
+Deploys a lightweight Chrome browser extension utilizing a non-blocking `background.js` service worker that hooks into `chrome.webNavigation.onCompleted` listeners . The extension asynchronously dispatches captured URLs via structured JSON API payloads to a cloud-hosted Flask backend, changing the extension icon badge color or rendering an intrusive full-page block overlay if risks exceed 80% .
+
+ ### Centralized Security Intelligence Dashboard and Local Persistence
+
+Persists all structural threat logs, extracted feature vectors, and dynamic WHOIS registries into a local SQLite database engine (`detections.db`) . This analytics data is fed into a single-page interactive monitoring dashboard optimized with Chart.js modules to present security feeds, processing metrics, and mathematical feature importance charts directly to the end user .
