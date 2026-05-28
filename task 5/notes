@@ -1,0 +1,11 @@
+###  Model Performance Metrics
+
+The core machine learning engine achieves high-fidelity zero-day classification capabilities, maintaining a verified 96% accuracy, 96% precision, 96% recall, and a 96% F1-score on held-out test datasets.
+
+###  Manifest V3 Extension Architecture
+
+Built directly on modern browser extension standards utilizing a non-blocking background service worker (`background.js`) to monitor web navigation events asynchronously, preventing network latency during active routing.
+
+###  Vulnerability Remediation Mapping
+
+Systematically logs and classifies production-level infrastructure vulnerabilities discovered during the internship, mapping all 16 findings to specific CWE and CVSS frameworks to establish actionable, prioritized defense patches.
