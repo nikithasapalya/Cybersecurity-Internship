@@ -1,0 +1,19 @@
+ ### Layer 1: Trusted Domain Allowlist Verification
+
+Routes incoming URL strings through a static verification list containing over 150 verified domains—including all six Yenepoya University institutional portals—instantly assigning a safe risk rating of 2% to eliminate false positives for trusted infrastructure.
+
+### ### Layer 2: Hard Rule Blocklist Assessment
+
+Evaluates string structures for immediate high-risk anomalies, such as direct IP-address hosting, embedded user-manipulation symbols like `@`, and Punycode or homograph domain signatures, instantly flagging matches with a threat rating of 97%.
+
+ ### Layer 3: Machine Learning Matrix Classification
+
+Processes all remaining unclassified URLs through a data-driven feature extractor to isolate 21 distinctive numerical metrics, feeding them into a trained Random Forest model with 200 estimators to compute a real-time risk probability score between 0% and 100%.
+
+ ### Asynchronous Manifest V3 Background Interception
+
+Deploys a non-blocking background service worker inside a Chrome extension that actively intercepts browser navigation events, communicates asynchronously with a Flask REST API via JSON data payloads, and returns real-time risk badges or blocks access with a warning overlay.
+
+ ### Centralized Intelligence Dashboard and Persistence System
+
+Saves every dynamic URL scan locally inside an integrated SQLite database engine, feeding analytical metrics directly into a single-page monitoring dashboard featuring real-time threat activity logs, scanning interfaces, and historical data distributions.
