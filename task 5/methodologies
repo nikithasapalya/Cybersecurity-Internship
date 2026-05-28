@@ -1,0 +1,11 @@
+ ### 3-Layer Hybrid Pipeline Framework
+
+Employs a zero-false-positive design by routing network traffic vectors through multiple protective tiers: an institutional domain allowlist, a rule-based structural blocklist for anomalies like raw IP hosts or Punycode, and a trained Random Forest machine learning classifier.
+
+ ### OWASP-Aligned Penetration Testing
+
+Follows a structured five-phase security assessment lifecycle—comprising passive OSINT reconnaissance, active port scanning, automated mobile static analysis via MobSF, manual exploitation testing using Burp Suite, and comprehensive risk mitigation reporting.
+
+### Data-Driven Feature Engineering
+
+Evaluates live URL vectors dynamically by parsing them into 21 distinctive numerical metrics across three specific operational categories: lexical patterns, structural characteristics, and domain semantics.
